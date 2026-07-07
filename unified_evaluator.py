@@ -8,10 +8,10 @@ from datetime import datetime
 from pathlib import Path
 from tqdm import tqdm
 
-from utils.config_loader import load_yaml_config
-from utils.env_manager import EnvironmentManager
-from utils.logger import log, display_scoreboard
-from tasks.task_registry import TASK_REGISTRY, ALL_TASKS
+from .utils.config_loader import load_yaml_config
+from .utils.env_manager import EnvironmentManager
+from .utils.logger import log, display_scoreboard
+from .tasks.task_registry import TASK_REGISTRY, ALL_TASKS
 
 class UnifiedEvaluator:
     """

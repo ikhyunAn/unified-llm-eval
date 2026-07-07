@@ -26,7 +26,7 @@ models:
     api_model_name: "prover"  # Must match your --lora-modules name
     tokenizer_path: "Qwen/Qwen3-32B"
   # - model_name: "deepseek-coder-6.7b-instruct-local"
-  #   path: "/scratch/shared_dir/xinyu/deepseek-coder-6.7b-instruct"
+  #   path: "/path/to/models/deepseek-coder-6.7b-instruct"
   #   type: "instruct"
   #   description: "Base instructed model"
   #   location: "local"

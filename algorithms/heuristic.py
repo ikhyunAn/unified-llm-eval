@@ -9,8 +9,8 @@ from mergekit.config import MergeConfiguration
 from mergekit.merge import MergeOptions, run_merge
 from typing import Dict, List
 from pathlib import Path
-from utils.env_manager import EnvironmentManager
-from tasks.task_registry import TASK_REGISTRY
+from ..utils.env_manager import EnvironmentManager
+from ..tasks.task_registry import TASK_REGISTRY
 
 CONFIG_FILE_PATH = os.environ.get("SANDHI_CONFIG_PATH", "algorithms/sandhi_config.yml")
 

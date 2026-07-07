@@ -4,8 +4,8 @@ Utility script to populate the `models` section of config.yml using
 all immediate subdirectories found under a given root directory.
 
 Usage:
-  python scripts/populate_models_from_dir.py --root "/scratch/shared_dir/oduran6/" \
-      --config "/nethome/oduran6/unified-llm-eval/config.yml" \
+  python scripts/populate_models_from_dir.py --root "/path/to/models/" \
+      --config "config.yml" \
       --model-name-prefix "deepseek-coder-instruct" \
       --type "instruct"
 

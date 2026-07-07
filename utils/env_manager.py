@@ -91,22 +91,6 @@ class EnvironmentManager:
             timeout: Timeout in seconds
             stream_output: If True, stream output to console in real-time
         """
-        # If env_name is "virtualenv", use the user's virtualenv
-        if env_name == "ian6-venv":
-            # TODO: change this command accordingly.
-            venv_activate = "/nethome/ian6/ian6-myenv/bin/activate"
-            # Run command with virtualenv activated
-            full_command = f"source {venv_activate} && " + " ".join(command_args)
-            result = subprocess.run(
-                full_command,
-                shell=True,
-                cwd=cwd,
-                capture_output=True,
-                text=True,
-                timeout=timeout
-            )
-            return result
-
         conda_command = [
             "conda", "run", "-n", env_name, "--no-capture-output"
         ] + command_args

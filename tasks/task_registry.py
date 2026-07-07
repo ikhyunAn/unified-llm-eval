@@ -1,8 +1,8 @@
 # tasks/task_registry.py
-from evaluators.language_evaluator import LanguageEvaluator
-from evaluators.harness_evaluator import HarnessEvaluator
-from evaluators.simple_evaluator import SimpleEvaluator
-from evaluators.minif2f_evaluator import MinIF2FEvaluator
+from ..evaluators.language_evaluator import LanguageEvaluator
+from ..evaluators.harness_evaluator import HarnessEvaluator
+from ..evaluators.simple_evaluator import SimpleEvaluator
+from ..evaluators.minif2f_evaluator import MinIF2FEvaluator
 
 # This registry is the single source of truth for mapping tasks to their
 # respective evaluation logic and environment.
@@ -40,7 +40,6 @@ TASK_REGISTRY = {
     "ceval-valid_middle_school_biology": {"evaluator": SimpleEvaluator, "env": None},
     "tinyMMLU": {"evaluator": SimpleEvaluator, "env": None},
     "financial_tweets": {"evaluator": SimpleEvaluator, "env": None},
-    "ceval-valid_middle_school_biology": {"evaluator": SimpleEvaluator, "env": None},
 
     # financial candiates
     "mmlu_corporate_finance": {"evaluator": SimpleEvaluator, "env": None},

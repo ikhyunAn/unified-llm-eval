@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 import time
 import subprocess
 from datetime import datetime
-from utils.result_parser import parse_score
+from ..utils.result_parser import parse_score
 
 class BaseEvaluator(ABC):
     """

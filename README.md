@@ -20,7 +20,9 @@ The core of the pipeline is the main entry point `unified_evaluator.py`, which o
 ## Project Structure
 
 ```
-.
+unified_llm_eval/                 # Importable package (this repo; parent dir on sys.path)
+├── __init__.py                   # Public API surface (EnvironmentManager, TASK_REGISTRY, evaluate_model, ...)
+├── api.py                        # Convenience layer: evaluate_model, default_env_config, TASK_ALIASES
 ├── config.yml                    # Master configuration for runs, models, and paths
 ├── config/
 │   ├── harness_env.yml           # Conda environment for math/harness tasks
@@ -103,7 +105,7 @@ The core of the pipeline is the main entry point `unified_evaluator.py`, which o
 
         **Run the main script**
         ```bash
-        python unified_evaluator.py
+        python -m unified_llm_eval.unified_evaluator
         ```
 
       * **Option 2: Manual Creation**
@@ -219,7 +221,7 @@ Use the helper script to auto-generate the `models` section in `config.yml` from
 
 ```bash
 python scripts/populate_models_from_dir.py \
-  --root "/scratch/shared_dir/oduran6/" \
+  --root "/path/to/models/" \
   --config "config.yml" \
   --model-name-prefix "deepseek-coder-instruct" \
   --type "instruct" \
@@ -233,17 +235,40 @@ Notes:
 
 ## Usage
 
-Once `config.yml` is configured, run the entire pipeline with a single command:
+This project is an importable Python package named `unified_llm_eval`. The
+checkout directory must be named `unified_llm_eval` (an importable name — no
+hyphen) and its **parent** directory must be on `sys.path`. When embedded in
+another project (e.g. as a subdirectory), run commands from that parent so the
+package resolves; the entry points are invoked as modules with `-m`.
+
+Once `config.yml` is configured, run the entire pipeline with:
 
 ```bash
-python unified_evaluator.py
+# From the directory that contains the unified_llm_eval/ package
+python -m unified_llm_eval.unified_evaluator
 ```
 
 To use a different configuration file, specify it with the `--config` flag:
 
 ```bash
-python unified_evaluator.py --config config/my_special_run.yml
+python -m unified_llm_eval.unified_evaluator --config config/my_special_run.yml
 ```
+
+### Consuming it as a library
+
+Other tools can drive evaluations directly through the public API without any
+`sys.path` insertion or `UNIFIED_LLM_EVAL_ROOT` env var — vendored tool paths are
+resolved relative to the package:
+
+```python
+from unified_llm_eval import EnvironmentManager, evaluate_model, default_env_config
+
+env_config = default_env_config()          # vendor paths resolved to absolute
+score = evaluate_model("/path/to/model", "coder", env_config=env_config)
+```
+
+`evaluate_model` accepts abstract task aliases (`"coder"`, `"math"`) as well as
+registry keys, and returns the numeric score.
 
 ## MiniF2F / Theorem Proving Setup
 
@@ -297,7 +322,7 @@ The pipeline supports Lean 4 theorem proving evaluation using the Goedel-Prover-
 4. **Run the evaluation:**
 
    ```bash
-   python unified_evaluator.py
+   python -m unified_llm_eval.unified_evaluator
    ```
 
 ### Supported Models
@@ -351,18 +376,18 @@ Before running, please configure the following keys in that file:
 
 ### 2. How to Run
 
-Execute the scripts from the **root** directory of the `unified-llm-eval` project using the `python -m` command:
+Execute the scripts from the directory that **contains** the `unified_llm_eval` package using the `python -m` command:
 
 **To run the Greedy algorithm:**
 
 ```bash
-python -m algorithms.greedy
+python -m unified_llm_eval.algorithms.greedy
 ```
 
 **To run the Heuristic algorithm:**
 
 ```bash
-python -m algorithms.heuristic
+python -m unified_llm_eval.algorithms.heuristic
 ```
 
 ### 3. Outputs
